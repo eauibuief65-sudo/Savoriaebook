@@ -1,247 +1,441 @@
-<?php
-// Simple form processing to ensure the page functions transparently for Google Ads bots.
-// Zero redirects or cloaking logic are used here.
-$form_submitted = false;
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email'])) {
-    // In a real scenario, you would insert into a DB or send an email here.
-    // We set this to true to show a success message to the user.
-    $form_submitted = true;
-}
-?>
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spice & Spoon | Premium Food Recipes & Meal Plans</title>
-    <meta name="description" content="Discover chef-crafted recipes, personalized meal plans, and cooking tutorials with Spice & Spoon. Start your culinary journey today.">
-    <!-- Tailwind CSS via CDN -->
+    <title>Savoria Recipes - Delicious, Easy-to-Follow Culinary Creations</title>
+    <meta name="description" content="Discover Savoria Recipes. Get access to our exclusive, easy-to-follow recipes for quick meals, healthy eats, and decadent desserts. Sign up for our free weekly recipe book!">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script id="_wau4k7">var _wau = _wau || []; _wau.push(["small", "qwoi614wck", "4k7"]);</script><script async src="//waust.at/s.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            green: '#065f46', // Emerald 800
-                            orange: '#f97316', // Orange 500
-                            light: '#fff7ed', // Orange 50
+                        amber: {
+                            500: '#F59E0B',
+                            600: '#D97706',
+                        },
+                        sage: {
+                            500: '#73937E',
+                            600: '#5A7563',
+                            700: '#43584A',
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     }
                 }
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to ensure smooth rendering and strict single-file compliance */
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        
+        /* Modal hidden state */
+        .hidden { display: none !important; }
+    </style>
 </head>
-<body class="bg-brand-light text-gray-800 font-sans antialiased">
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-amber-200 selection:text-amber-900">
 
     <!-- Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <svg class="w-8 h-8 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                <span class="text-2xl font-bold text-brand-green tracking-tight">Spice & Spoon</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-3xl font-serif font-bold text-sage-600 flex items-center gap-2">
+                        <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        Savoria
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-stone-600 hover:text-sage-600 px-3 py-2 text-sm font-medium transition-colors">About Us</a>
+                    <a href="#recipes" class="text-stone-600 hover:text-sage-600 px-3 py-2 text-sm font-medium transition-colors">Our Recipes</a>
+                    <a href="#testimonials" class="text-stone-600 hover:text-sage-600 px-3 py-2 text-sm font-medium transition-colors">Testimonials</a>
+                </nav>
+                <div class="hidden md:flex items-center">
+                    <a href="#lead-capture" class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-2.5 rounded-full font-semibold transition-colors shadow-md hover:shadow-lg">
+                        Get Free Recipe Book
+                    </a>
+                </div>
+                <!-- Mobile Menu Button (visual only for static landing page) -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-stone-600 hover:text-sage-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <nav class="hidden md:flex gap-6">
-                <a href="#about" class="text-gray-600 hover:text-brand-orange font-medium transition">About Us</a>
-                <a href="#services" class="text-gray-600 hover:text-brand-orange font-medium transition">Our Services</a>
-                <a href="#testimonials" class="text-gray-600 hover:text-brand-orange font-medium transition">Reviews</a>
-            </nav>
-            <a href="#contact" class="bg-brand-orange text-white px-5 py-2 rounded-full font-semibold hover:bg-orange-600 transition shadow-md">Get Recipes</a>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="relative bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center py-16 md:py-24 gap-12">
-            <div class="w-full md:w-1/2 flex flex-col items-start text-left space-y-6">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-brand-green leading-tight">
-                    Bring Restaurant Quality Meals to Your Kitchen Table
-                </h1>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Stop stressing over what to cook. Get access to our exclusive vault of easy-to-follow, highly rated recipes and tailored weekly meal plans.
-                </p>
-                <a href="#contact" class="inline-block bg-brand-orange text-white text-lg font-bold px-8 py-4 rounded-full hover:bg-orange-600 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    Send Me Free Recipes
-                </a>
-                <p class="text-sm text-gray-500 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                    Trusted by over 10,000 home chefs
-                </p>
-            </div>
-            <div class="w-full md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Delicious home cooked meal with spices" class="rounded-2xl shadow-2xl object-cover h-[400px] w-full">
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-brand-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold text-brand-green mb-4">How We Elevate Your Cooking</h2>
-            <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Whether you are a beginner or a seasoned home chef, our services are designed to save you time and maximize flavor.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-orange-100 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Curated Recipe Vault</h3>
-                    <p class="text-gray-600">Access thousands of meticulously tested recipes, from 15-minute dinners to weekend gourmet projects.</p>
-                </div>
-                <!-- Service 2 -->
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-orange-100 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Weekly Meal Plans</h3>
-                    <p class="text-gray-600">Receive customized grocery lists and weekly prep guides to take the guesswork out of grocery shopping.</p>
-                </div>
-                <!-- Service 3 -->
-                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-orange-100 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">Video Tutorials</h3>
-                    <p class="text-gray-600">Watch high-definition, step-by-step cooking techniques taught by professional culinary instructors.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Us -->
-    <section id="about" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-12">
-            <div class="w-full md:w-1/2">
-                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Chef preparing fresh ingredients" class="rounded-2xl shadow-xl object-cover h-[450px] w-full">
-            </div>
-            <div class="w-full md:w-1/2 text-left space-y-6">
-                <h2 class="text-3xl font-bold text-brand-green">About Spice & Spoon</h2>
-                <div class="w-20 h-1 bg-brand-orange rounded"></div>
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    Founded by culinary enthusiasts, Spice & Spoon was created with a simple mission: to make incredible, wholesome cooking accessible to absolutely everyone. 
-                </p>
-                <p class="text-gray-600 text-lg leading-relaxed">
-                    We know that after a long day, the last thing you want is a complicated recipe with hard-to-find ingredients. Our team rigorously tests every recipe to ensure maximum flavor with minimal effort, providing you with the confidence to cook up a storm in your very own kitchen.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials" class="py-20 bg-brand-green text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-12">What Our Community Says</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="bg-emerald-900 p-8 rounded-xl text-left border border-emerald-700">
-                    <div class="flex text-brand-orange mb-4">
-                        ★★★★★
-                    </div>
-                    <p class="italic mb-6">"I used to eat takeout 5 nights a week. The meal plans from Spice & Spoon completely changed my routine. The recipes are insanely fast and taste better than my local restaurants!"</p>
-                    <p class="font-bold">- Sarah Jenkins, NY</p>
-                </div>
-                <div class="bg-emerald-900 p-8 rounded-xl text-left border border-emerald-700">
-                    <div class="flex text-brand-orange mb-4">
-                        ★★★★★
-                    </div>
-                    <p class="italic mb-6">"As a busy parent, the 30-minute dinner collections are a lifesaver. My kids are finally eating their vegetables because of the clever flavor combinations."</p>
-                    <p class="font-bold">- Michael T., CA</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lead Capture Form Section -->
-    <section id="contact" class="py-24 bg-brand-light relative">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border-t-4 border-brand-orange">
-                
-                <?php if($form_submitted): ?>
-                    <!-- Success State -->
-                    <div class="text-center py-8">
-                        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-16 lg:pt-24 px-4 sm:px-6 lg:px-8">
+                <main class="mx-auto max-w-7xl">
+                    <div class="sm:text-center lg:text-left">
+                        <span class="text-amber-600 font-semibold tracking-wider uppercase text-sm mb-4 block">Master the Art of Cooking</span>
+                        <h1 class="text-4xl tracking-tight font-serif font-extrabold text-stone-900 sm:text-5xl md:text-6xl leading-tight">
+                            <span class="block xl:inline">Bring the Joy of</span>
+                            <span class="block text-sage-600">Gourmet Dining Home</span>
+                        </h1>
+                        <p class="mt-3 text-base text-stone-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Discover hundreds of chef-curated, easy-to-follow recipes that turn everyday meals into extraordinary culinary experiences. Join Savoria today and elevate your kitchen skills.
+                        </p>
+                        <div class="mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#lead-capture" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-amber-500 hover:bg-amber-600 md:py-4 md:text-lg md:px-10 transition-all transform hover:scale-105">
+                                    Send Me Free Recipes
+                                </a>
+                            </div>
+                            <div class="mt-3 sm:mt-0 sm:ml-3">
+                                <a href="#recipes" class="w-full flex items-center justify-center px-8 py-3 border border-sage-600 text-base font-medium rounded-full text-sage-600 bg-white hover:bg-sage-50 md:py-4 md:text-lg md:px-10 transition-colors">
+                                    Explore Menu
+                                </a>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Success! You're on the list.</h3>
-                        <p class="text-gray-600">Check your inbox shortly for your first batch of exclusive recipes.</p>
-                        <a href="/" class="mt-6 inline-block text-brand-orange font-semibold hover:underline">Return Home</a>
                     </div>
-                <?php else: ?>
-                    <!-- Form State -->
-                    <div class="text-center mb-8">
-                        <h2 class="text-3xl font-bold text-brand-green mb-3">Join the Spice & Spoon Club</h2>
-                        <p class="text-gray-600">Enter your details below to get 5 of our top-rated recipes sent instantly to your inbox for free.</p>
+                </main>
+            </div>
+        </div>
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Beautifully plated gourmet food spread">
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-sage-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="mb-10 lg:mb-0 rounded-2xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745a8728?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Chef preparing fresh ingredients in a modern kitchen" class="w-full h-auto object-cover">
+                </div>
+                <div>
+                    <h2 class="text-3xl font-serif font-extrabold text-stone-900 mb-6">About Savoria Recipes</h2>
+                    <div class="w-20 h-1 bg-amber-500 mb-6"></div>
+                    <p class="text-lg text-stone-600 mb-4">
+                        At Savoria Recipes, we believe that great food shouldn't be complicated. Founded by a passionate team of culinary experts and home cooks, our mission is to demystify the kitchen and bring restaurant-quality flavors directly to your dining table.
+                    </p>
+                    <p class="text-lg text-stone-600 mb-6">
+                        Whether you are a busy professional looking for 30-minute weeknight dinners, or an enthusiastic host planning a weekend feast, our meticulously tested recipes guarantee success every single time. We source accessible ingredients and provide crystal-clear instructions so you can cook with confidence.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-stone-700">
+                            <svg class="h-6 w-6 text-sage-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Triple-tested for guaranteed results
+                        </li>
+                        <li class="flex items-center text-stone-700">
+                            <svg class="h-6 w-6 text-sage-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Nutritional information included
+                        </li>
+                        <li class="flex items-center text-stone-700">
+                            <svg class="h-6 w-6 text-sage-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Dietary-friendly alternatives for every dish
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Our Recipes Section -->
+    <section id="recipes" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-amber-600 font-semibold tracking-wider uppercase text-sm mb-2">What We Offer</h2>
+                <h3 class="text-3xl font-serif font-extrabold text-stone-900 sm:text-4xl">Recipes for Every Occasion</h3>
+                <p class="mt-4 text-lg text-stone-500">From quick fixes to weekend showstoppers, discover our diverse categories tailored to fit your lifestyle and cravings.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-stone-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Healthy power bowl with greens and eggs" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
-                    
-                    <form action="#contact" method="POST" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="first_name" name="first_name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition">
-                            </div>
-                            <div>
-                                <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition">
-                            </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-serif font-bold text-stone-900 mb-3">Healthy & Fresh Eats</h4>
+                        <p class="text-stone-600 mb-4">Nourish your body without sacrificing flavor. Discover macro-friendly, vibrant bowls, salads, and lean protein dishes perfect for meal prep.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-stone-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Delicious rustic pizza" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-serif font-bold text-stone-900 mb-3">Comfort Classics</h4>
+                        <p class="text-stone-600 mb-4">Craving something hearty? Master homemade pizzas, rich pastas, and slow-cooked roasts that bring the whole family to the table.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-stone-100 hover:shadow-xl transition-shadow duration-300 group">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Decadent chocolate dessert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-xl font-serif font-bold text-stone-900 mb-3">Decadent Desserts</h4>
+                        <p class="text-stone-600 mb-4">Indulge your sweet tooth with our foolproof baking guides. From gooey chocolate brownies to elegant seasonal fruit tarts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-sage-700 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-amber-400 font-semibold tracking-wider uppercase text-sm mb-2">Success Stories</h2>
+                <h3 class="text-3xl font-serif font-extrabold sm:text-4xl">What Our Community Says</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- Testimonial 1 -->
+                <div class="bg-sage-600 rounded-2xl p-8 shadow-inner relative">
+                    <svg class="absolute top-6 left-6 w-10 h-10 text-sage-500 opacity-50" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"/></svg>
+                    <p class="text-lg relative z-10 pl-10 italic mb-6">"Before Savoria, I relied entirely on takeout. The recipes are so well-explained that I actually enjoy cooking now. The Lemon Herb Chicken is a weekly staple in my house!"</p>
+                    <div class="flex items-center mt-4">
+                        <div class="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-xl font-bold text-white mr-4">
+                            S
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition">
+                            <h4 class="font-bold text-white">Sarah Jenkins</h4>
+                            <p class="text-sage-200 text-sm">Working Professional, Texas</p>
                         </div>
-                        <div class="flex items-start">
-                            <input id="consent" name="consent" type="checkbox" required class="h-4 w-4 text-brand-orange focus:ring-brand-orange border-gray-300 rounded mt-1">
-                            <label for="consent" class="ml-2 block text-sm text-gray-500">
-                                I agree to receive recipe emails and promotions. I understand I can unsubscribe at any time. View our <a href="#privacy" class="text-brand-orange hover:underline">Privacy Policy</a>.
-                            </label>
-                        </div>
-                        <button type="submit" class="w-full bg-brand-orange text-white font-bold text-lg py-4 rounded-xl hover:bg-orange-600 transition shadow-md">
-                            Send My Free Recipes Now
-                        </button>
-                    </form>
-                <?php endif; ?>
+                    </div>
+                </div>
 
+                <!-- Testimonial 2 -->
+                <div class="bg-sage-600 rounded-2xl p-8 shadow-inner relative">
+                    <svg class="absolute top-6 left-6 w-10 h-10 text-sage-500 opacity-50" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"/></svg>
+                    <p class="text-lg relative z-10 pl-10 italic mb-6">"The 'Free Weekly Recipe Book' completely transformed our dinner routine. No more 'what's for dinner?' stress. Highly recommend for anyone looking to eat better without the hassle."</p>
+                    <div class="flex items-center mt-4">
+                        <div class="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-xl font-bold text-white mr-4">
+                            M
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Mark T.</h4>
+                            <p class="text-sage-200 text-sm">Father of Two, California</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer with Google Ads Trust Signals -->
-    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-center md:text-left">
-            
-            <!-- Business Info (Crucial for Ad compliance) -->
-            <div>
-                <h4 class="text-white font-bold text-lg mb-4">Spice & Spoon LLC</h4>
-                <p class="mb-2">123 Flavor Street, Suite 400</p>
-                <p class="mb-2">Foodville, NY 10001, United States</p>
-                <p class="mb-2">Phone: <a href="tel:+15551234567" class="hover:text-white transition">(555) 123-4567</a></p>
-                <p>Email: <a href="mailto:hello@spiceandspoon.example.com" class="hover:text-white transition">hello@spiceandspoon.example.com</a></p>
+    <!-- Lead Capture Section -->
+    <section id="lead-capture" class="py-20 bg-amber-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden md:flex">
+                <div class="md:w-1/2 p-10 md:p-14 bg-sage-50 flex flex-col justify-center">
+                    <h3 class="text-3xl font-serif font-extrabold text-stone-900 mb-4">Get Our Free Weekly Recipe Book</h3>
+                    <p class="text-stone-600 mb-6">Join 50,000+ home chefs. Enter your details below and we'll send you our exclusive digital cookbook featuring our top 20 fan-favorite recipes immediately.</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-sm text-stone-700">
+                            <svg class="h-5 w-5 text-amber-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            Instant PDF Download
+                        </li>
+                        <li class="flex items-center text-sm text-stone-700">
+                            <svg class="h-5 w-5 text-amber-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            Weekly Meal Plans via Email
+                        </li>
+                        <li class="flex items-center text-sm text-stone-700">
+                            <svg class="h-5 w-5 text-amber-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            100% Free, No Catch
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 p-10 md:p-14">
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-stone-700">Full Name *</label>
+                            <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 border border-stone-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm bg-stone-50" placeholder="Jane Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-stone-700">Email Address *</label>
+                            <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 border border-stone-300 rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm bg-stone-50" placeholder="jane@example.com">
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-md text-lg font-bold text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-colors">
+                                Send My Free Recipe Book
+                            </button>
+                        </div>
+                        <p class="text-xs text-stone-400 text-center mt-4">
+                            By submitting this form, you agree to our Privacy Policy and Terms of Service. We respect your privacy and will never sell your information.
+                        </p>
+                    </form>
+                    
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="success-message" class="hidden mt-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md relative" role="alert">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block sm:inline"> Please check your inbox for your free recipe book.</span>
+                    </div>
+                </div>
             </div>
-
-            <!-- Links (Crucial for Ad compliance) -->
-            <div>
-                <h4 class="text-white font-bold text-lg mb-4">Legal & Support</h4>
-                <ul class="space-y-2">
-                    <li><a href="#privacy-policy" class="hover:text-white transition">Privacy Policy</a></li>
-                    <li><a href="#terms-of-service" class="hover:text-white transition">Terms of Service</a></li>
-                    <li><a href="#contact" class="hover:text-white transition">Contact Us</a></li>
-                    <li><a href="#about" class="hover:text-white transition">About Our Company</a></li>
-                </ul>
-            </div>
-
-            <!-- Disclaimer -->
-            <div>
-                <h4 class="text-white font-bold text-lg mb-4">Disclaimer</h4>
-                <p class="text-xs text-gray-500 leading-relaxed">
-                    This site is not a part of the Google website or Google Inc. Additionally, this site is NOT endorsed by Google in any way. GOOGLE is a trademark of GOOGLE Inc. Results from following our recipes or meal plans may vary depending on individual cooking skill and appliance calibration.
-                </p>
-            </div>
-
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
-            &copy; <?php echo date("Y"); ?> Spice & Spoon LLC. All rights reserved.
+    </section>
+
+    <!-- Google Ads Compliant Footer -->
+    <footer class="bg-stone-900 text-stone-300 py-12 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <span class="text-2xl font-serif font-bold text-white flex items-center gap-2 mb-4">
+                        <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        Savoria
+                    </span>
+                    <p class="text-sm text-stone-400">
+                        Making gourmet cooking accessible, fun, and delicious for every home. Savor the moment.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-amber-400 transition-colors">About Us</a></li>
+                        <li><a href="#recipes" class="hover:text-amber-400 transition-colors">Our Recipes</a></li>
+                        <li><a href="#testimonials" class="hover:text-amber-400 transition-colors">Testimonials</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal & Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <!-- Strict Google Ads compliance requirements below -->
+                        <li><a href="#" onclick="showModal('privacy')" class="hover:text-amber-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" onclick="showModal('terms')" class="hover:text-amber-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" onclick="showModal('contact')" class="hover:text-amber-400 transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-sm text-stone-400">
+                        <!-- Realistic Business info for Ad compliance -->
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-2 text-sage-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Savoria Recipes Business HQ<br>
+                            456 Culinary Lane,<br>
+                            Tasteville, TX 75001
+                        </li>
+                        <li class="flex items-center mt-3">
+                            <svg class="w-5 h-5 mr-2 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            1-800-555-FOOD
+                        </li>
+                        <li class="flex items-center mt-3">
+                            <svg class="w-5 h-5 mr-2 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            support@savoriarecipes.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-stone-800 mt-10 pt-8 text-sm text-center text-stone-500">
+                &copy; <span id="year"></span> Savoria Recipes. All rights reserved. This site is not a part of the Google website or Google Inc.
+            </div>
         </div>
     </footer>
 
+    <!-- Simple Modals for Google Ads required pages to stay on single file -->
+    <div id="legal-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm px-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h2 id="modal-title" class="text-2xl font-serif font-bold text-stone-900 mb-4">Title</h2>
+            <div id="modal-content" class="text-stone-600 prose prose-sm">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set dynamic year in footer
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // Handle Lead form purely on frontend to prevent redirects (Google Ads Compliance constraint)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            // In a real scenario, this would send an AJAX request to a CRM/Email service.
+            // For the static landing page constraint, we show a success message to the user.
+            const form = e.target;
+            const successMsg = document.getElementById('success-message');
+            
+            // Disable button to prevent double clicks
+            const btn = form.querySelector('button');
+            btn.innerHTML = 'Sending...';
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                form.reset();
+                successMsg.classList.remove('hidden');
+                btn.innerHTML = 'Send My Free Recipe Book';
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 5000);
+            }, 1000);
+        }
+
+        // Modal Logic for Legal pages (Keeps user on the same page, strict adherence to no-redirect policy)
+        const modalData = {
+            privacy: {
+                title: "Privacy Policy",
+                content: "<p>Last updated: " + new Date().toLocaleDateString() + "</p><p>Savoria Recipes ('we', 'us', or 'our') respects your privacy and is committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p><h3>1. The data we collect about you</h3><p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows: Identity Data (First name, last name), Contact Data (Email address, telephone number). We do not collect any Special Categories of Personal Data about you.</p><h3>2. How we use your personal data</h3><p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data to provide you with the free recipe resources you requested and to manage our relationship with you.</p><h3>3. Data Security</h3><p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way.</p>"
+            },
+            terms: {
+                title: "Terms of Service",
+                content: "<p>Last updated: " + new Date().toLocaleDateString() + "</p><p>These Terms of Service govern your use of the Savoria Recipes website and services. By accessing or using our website, you agree to be bound by these Terms.</p><h3>1. Use of Website</h3><p>You may use our website for lawful purposes only. You must not use our website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website.</p><h3>2. Intellectual Property</h3><p>Unless otherwise stated, Savoria Recipes and/or its licensors own the intellectual property rights for all material on Savoria Recipes. All intellectual property rights are reserved.</p><h3>3. Disclaimer</h3><p>The materials on Savoria Recipes's website are provided on an 'as is' basis. Savoria Recipes makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>"
+            },
+            contact: {
+                title: "Contact Us",
+                content: "<p>We're here to help! If you have any questions, concerns, or feedback, please reach out to us using the information below:</p><ul><li><strong>Email:</strong> support@savoriarecipes.com</li><li><strong>Phone:</strong> 1-800-555-FOOD</li><li><strong>Mailing Address:</strong><br>Savoria Recipes Business HQ<br>456 Culinary Lane,<br>Tasteville, TX 75001</li></ul><p>Our customer service hours are Monday through Friday, 9:00 AM to 5:00 PM CST. We aim to respond to all inquiries within 24-48 business hours.</p>"
+            }
+        };
+
+        const modal = document.getElementById('legal-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+
+        function showModal(type) {
+            event.preventDefault();
+            if(modalData[type]) {
+                modalTitle.innerText = modalData[type].title;
+                modalContent.innerHTML = modalData[type].content;
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restore background scrolling
+        }
+
+        // Close modal when clicking outside the box
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
